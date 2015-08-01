@@ -1,26 +1,33 @@
-Note to anyone who may stumble across this page – I had the idea and wanted to write down my thoughts before I forgot, but I'm not sure if this would ever be something I have the time to develop to the level of quality it would need to be for us to want to use it. Feel free to take the idea and run with it if you're so inclined, I'd love to see it happen.
 
-h1. puppet.sh - set of bash functions for inclusion in a puppet manifest (like init.d)
+> Note to anyone who may stumble across this page – I had the idea and wanted to write down my thoughts before I forgot, but I'm not sure if this would ever be something I have the time to develop to the level of quality it would need to be for us to want to use it. Feel free to take the idea and run with it if you're so inclined, I'd love to see it happen.
 
-p. The idea is pretty simple: take a handful of puppet scenarios and come up with commonly-named scripts to handle those scenarios. Keep the list of script names as short and organized as possible, and implement common functions like info/warn/error, access to facter data, and a few other useful bits of glue to strip away all the puppet syntax and focus on the bits we really care about – mainly, getting functional change control of all datacenter servers across the farm.
+puppet.sh - set of bash functions for inclusion in a puppet manifest (like init.d)
+=========
 
-h1. Functions
+The idea is pretty simple: take a handful of puppet scenarios and come up with commonly-named scripts to handle those scenarios. Keep the list of script names as short and organized as possible, and implement common functions like info/warn/error, access to facter data, and a few other useful bits of glue to strip away all the puppet syntax and focus on the bits we really care about – mainly, getting functional change control of all datacenter servers across the farm.
 
-p. todo: list of functions that get imported by the puppet.sh script. top of my head, info/warn/error, facter data, puppet variables (get and set)
+Functions
+=========
 
-h1. Puppet module
+todo: list of functions that get imported by the puppet.sh script. top of my head, info/warn/error, facter data, puppet variables (get and set)
 
-p. todo: architect the layer of puppet code that sits around these bash scripts: calls exec, handles exit codes, logging info/warn/error, etc.
+Puppet module
+=============
 
-h1. Directory structure
+todo: architect the layer of puppet code that sits around these bash scripts: calls exec, handles exit codes, logging info/warn/error, etc.
 
-p. todo: determine specifics here. off the top of my head i'm thinking $BASEDIR/someDescriptiveName/*.sh, where "someDescriptiveName" identifies what the scripts are handling (e.g. updating subscription info, setting udev rules, adding an iptables rule for jump boxes) and $BASEDIR is whatever place puppet puts stuff when it runs (which we don't care about since we're staying in that directory by default anyway).
+Directory structure
+===================
 
-h1. File naming scheme
+todo: determine specifics here. off the top of my head i'm thinking $BASEDIR/someDescriptiveName/*.sh, where "someDescriptiveName" identifies what the scripts are handling (e.g. updating subscription info, setting udev rules, adding an iptables rule for jump boxes) and $BASEDIR is whatever place puppet puts stuff when it runs (which we don't care about since we're staying in that directory by default anyway).
 
-p. todo: list each possible script name and what it's purpose is.
+File naming scheme
+==================
 
-h1. Other thoughts
+todo: list each possible script name and what it's purpose is.
+
+Other thoughts
+==============
 
 Basically I want to flip the concept of "things" in puppet into a concept of "actions". Sure we can write code to add users to the server, but wouldn't it be easier to just use 'useradd'? Same with every other tool a good admin knows off the top of their head. That, plus bash if/switch statements, make a powerful enough toolkit, and bash has been around since '89 so it's way more likely to be around in 5 years. The barrier to entry with writing bash scripts is significantly lower than what it takes to (a) get used to puppet's annoyingly "familiar yet just different enough to bug me" syntax (b) wrap your head around the concepts of puppet (c) actually get good at writing puppet code, reading logs, pushing things out in a graceful way to a test system easily without it being a cumbersome process... the list goes on.
 
