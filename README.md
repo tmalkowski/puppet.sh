@@ -20,8 +20,8 @@ automate creation of a manifest from a template, results would look something li
 
 	class puppetsh::module {
 		exec { whateverDirectoryIsNamed:
-			command => 
-			onlyif => whatever you do in puppet to get a file's contents,
+			command => (whatever you do in puppet to get a file's contents),
+			onlyif => (whatever you do in puppet to get a file's contents),
 			logoutput => true
 		}
 	}
