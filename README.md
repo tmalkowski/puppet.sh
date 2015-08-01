@@ -16,15 +16,29 @@ Puppet module
 
 todo: architect the layer of puppet code that sits around these bash scripts: calls exec, handles exit codes, logging info/warn/error, etc.
 
-Directory structure
-===================
+automate creation of a manifest from a template, results would look something like this:
 
-todo: determine specifics here. off the top of my head i'm thinking $BASEDIR/someDescriptiveName/*.sh, where "someDescriptiveName" identifies what the scripts are handling (e.g. updating subscription info, setting udev rules, adding an iptables rule for jump boxes) and $BASEDIR is whatever place puppet puts stuff when it runs (which we don't care about since we're staying in that directory by default anyway).
+	class puppetsh::module {
+		exec { whateverDirectoryIsNamed:
+			command => 
+			onlyif => whatever you do in puppet to get a file's contents,
+			logoutput => true
+		}
+	}
+
+
 
 File naming scheme
 ==================
 
-todo: list each possible script name and what it's purpose is.
+	$BASEDIR/
+		directoryName/   ## should describe what the scripts are doing
+			README.md    ## .md so it's nice with github web interface, could contain additional notes if necessary.
+			exec.sh      ## required; without it, an error gets thrown into the puppet logs and nothing happens.
+			onlyif.sh    ## optional; you could also just write an if [[ "whatever" ]] || exit 0 at the top of exec.sh.
+			unless.sh    ## is this useful or does this confuse things?
+
+todo: figure out what else might be useful here, or if this is really all that's necessary. off the top of my head it seems like this is all we'd need.
 
 Other thoughts
 ==============
